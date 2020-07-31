@@ -16,7 +16,9 @@ whole project uses **MVC** design pattern.
 
 ### The "Option" class uses builder
 
-For the **Option** class, We used builder pattern as it contains a lot of fields, and most of them are optional. Therefore, I applied builder pattern to create a Option.
+For the **Option** class, We used builder pattern as it contains a lot of fields, and most of them are optional. Therefore, I applied builder pattern to create an Option.
+
+The **Options** contain all the Option objects and go through the Optionmaker class to build the object match the user intense, and pass it to the next step.
 
 ### The "comparators" use "Factory pattern".
 
