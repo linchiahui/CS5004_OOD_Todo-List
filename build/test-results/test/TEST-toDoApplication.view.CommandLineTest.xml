@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="toDoApplication.view.CommandLineTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-04-07T17:48:03" hostname="MSI" time="0.034">
+  <properties/>
+  <testcase name="testToString" classname="toDoApplication.view.CommandLineTest" time="0.0"/>
+  <testcase name="hasOption" classname="toDoApplication.view.CommandLineTest" time="0.0"/>
+  <testcase name="addOption" classname="toDoApplication.view.CommandLineTest" time="0.024"/>
+  <testcase name="testHashcode" classname="toDoApplication.view.CommandLineTest" time="0.0"/>
+  <testcase name="testEquals" classname="toDoApplication.view.CommandLineTest" time="0.009"/>
+  <system-out><![CDATA[[ CommandLine: [ options: [Option{longOpt='--csv-file', argName='csv', description='accepts the name of the csv file to process', required=true, numberOfArgs=1}, Option{longOpt='--display', argName='display', description='Display all todo.', required=false, numberOfArgs=-1}] ] ]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

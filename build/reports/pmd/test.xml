@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd"
+    version="6.8.0" timestamp="2020-04-07T10:48:08.696">
+<file name="D:\5004OOD\Student_repo_Chia_Hui_Lin\hw9\src\test\java\toDoApplication\model\ToDoTest.java">
+<violation beginline="53" endline="53" begincolumn="17" endcolumn="32" rule="EqualsNull" ruleset="Error Prone" package="toDoApplication.model" class="ToDoTest" method="testEquals" externalInfoUrl="https://pmd.github.io/pmd-6.8.0/pmd_rules_java_errorprone.html#equalsnull" priority="1">
+Avoid using equals() to compare against null
+</violation>
+</file>
+<file name="D:\5004OOD\Student_repo_Chia_Hui_Lin\hw9\src\test\java\toDoApplication\view\CommandLineTest.java">
+<violation beginline="40" endline="40" begincolumn="5" endcolumn="22" rule="SystemPrintln" ruleset="Best Practices" package="toDoApplication.view" class="CommandLineTest" method="addOption" externalInfoUrl="https://pmd.github.io/pmd-6.8.0/pmd_rules_java_bestpractices.html#systemprintln" priority="2">
+System.out.println is used
+</violation>
+<violation beginline="47" endline="47" begincolumn="17" endcolumn="32" rule="EqualsNull" ruleset="Error Prone" package="toDoApplication.view" class="CommandLineTest" method="testEquals" externalInfoUrl="https://pmd.github.io/pmd-6.8.0/pmd_rules_java_errorprone.html#equalsnull" priority="1">
+Avoid using equals() to compare against null
+</violation>
+</file>
+<file name="D:\5004OOD\Student_repo_Chia_Hui_Lin\hw9\src\test\java\toDoApplication\view\OptionTest.java">
+<violation beginline="107" endline="107" begincolumn="17" endcolumn="32" rule="EqualsNull" ruleset="Error Prone" package="toDoApplication.view" class="OptionTest" method="testEquals" externalInfoUrl="https://pmd.github.io/pmd-6.8.0/pmd_rules_java_errorprone.html#equalsnull" priority="1">
+Avoid using equals() to compare against null
+</violation>
+</file>
+<file name="D:\5004OOD\Student_repo_Chia_Hui_Lin\hw9\src\test\java\toDoApplication\view\OptionsMaker.java">
+<violation beginline="6" endline="88" begincolumn="8" endcolumn="1" rule="ClassNamingConventions" ruleset="Code Style" package="toDoApplication.view" class="OptionsMaker" externalInfoUrl="https://pmd.github.io/pmd-6.8.0/pmd_rules_java_codestyle.html#classnamingconventions" priority="1">
+The utility class name 'OptionsMaker' doesn't match '[A-Z][a-zA-Z0-9]+(Utils?|Helper)'
+</violation>
+</file>
+<file name="D:\5004OOD\Student_repo_Chia_Hui_Lin\hw9\src\test\java\toDoApplication\view\OptionsTest.java">
+<violation beginline="101" endline="101" begincolumn="17" endcolumn="33" rule="EqualsNull" ruleset="Error Prone" package="toDoApplication.view" class="OptionsTest" method="testEquals" externalInfoUrl="https://pmd.github.io/pmd-6.8.0/pmd_rules_java_errorprone.html#equalsnull" priority="1">
+Avoid using equals() to compare against null
+</violation>
+</file>
+</pmd>

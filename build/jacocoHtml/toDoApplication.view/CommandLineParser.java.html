@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommandLineParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hw9</a> &gt; <a href="index.source.html" class="el_package">toDoApplication.view</a> &gt; <span class="el_source">CommandLineParser.java</span></div><h1>CommandLineParser.java</h1><pre class="source lang-java linenums">package toDoApplication.view;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * This class represents a CommandLineParser.
+ */
+
+public class CommandLineParser implements ICommandLineParser{
+  /** The CommandLine instance. */
+  protected CommandLine cmd;
+
+  /** The current Options. */
+  protected Options options;
+
+  /** The token currently being processed. */
+  protected String currentToken;
+
+  /** The last option parsed. */
+  protected Option currentOption;
+
+  /** The required options and groups expected to be found when parsing the command line. */
+  protected List&lt;String&gt; expectedOpts;
+
+  /**
+   * Empty constructor.
+   */
+<span class="fc" id="L29">  public CommandLineParser(){</span>
+
+<span class="fc" id="L31">  }</span>
+
+  /**
+   * Parse the arguments according to the specified Options.
+   *
+   * @param options   the specified Options
+   * @param arguments the command line arguments
+   * @return A CommandLine object, i.e. the list of atomic option and value tokens
+   * @throws ParserException if there are any problems encountered while parsing the command line
+   *                         tokens.
+   */
+  @Override
+  public CommandLine parse(Options options, String[] arguments) throws ParserException {
+<span class="fc" id="L44">    this.options = options;</span>
+<span class="fc" id="L45">    this.currentOption = null;</span>
+<span class="fc" id="L46">    this.expectedOpts = new ArrayList(options.getRequiredOptions());</span>
+
+<span class="fc" id="L48">    this.cmd = new CommandLine();</span>
+
+<span class="fc bfc" id="L50" title="All 2 branches covered.">    if (arguments == null) throw new ParserException(&quot;ERROR: No arguments were entered.&quot;);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">    for (String argument : arguments) {</span>
+<span class="fc" id="L52">        this.handleToken(argument);</span>
+    }
+    // check the arguments of the last option
+<span class="fc" id="L55">    this.checkRequiredArgs();</span>
+    // check if all required Options are fulfilled
+<span class="fc" id="L57">    this.checkRequiredOptions();</span>
+<span class="fc" id="L58">    return this.cmd;</span>
+
+  }
+
+  /**
+   * This method handles and processes all command line arguments as tokens.
+   *
+   * @param token the command line token to handle
+   * @throws ParserException if the cmd line token is judged to be invalid
+   */
+  private void handleToken(String token) throws ParserException {
+<span class="fc" id="L69">    this.currentToken = token;</span>
+<span class="pc bpc" id="L70" title="2 of 6 branches missed.">    if (this.currentOption != null &amp;&amp; this.currentOption.acceptsArg() &amp;&amp; this.isArgument(token)) {</span>
+<span class="fc" id="L71">      this.currentOption.addValueForProcessing(token.trim());</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">    } else if (this.currentToken.startsWith(&quot;--&quot;)) {</span>
+<span class="fc" id="L73">      this.handleLongOption(this.currentToken);</span>
+    } else {
+<span class="fc" id="L75">      throw new ParserException(&quot;ERROR: Unrecognized option: &quot; + this.currentToken);</span>
+    }
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    if (!token.startsWith(&quot;--&quot;)) {</span>
+<span class="fc" id="L78">      this.currentOption = null;</span>
+    }
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">    if (this.currentOption != null &amp;&amp; !this.currentOption.acceptsArg())</span>
+    {
+<span class="nc" id="L82">      this.currentOption = null;</span>
+    }
+<span class="fc" id="L84">  }</span>
+
+  /**
+   * This methods processes command line arguments starting with &quot;--&quot;
+   * i.e. all possible arguments, excluding the paths following them.
+   * e.g. --csv-file, --display
+   *
+   * @param token the command line token to process
+   */
+  private void handleLongOption(String token) throws ParserException {
+<span class="fc" id="L94">    List&lt;String&gt; matchingOpts = this.options.getMatchingOptions(token);</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">    if (matchingOpts.isEmpty()) {</span>
+<span class="nc" id="L96">      throw new ParserException(&quot;ERROR: Unrecognized option: &quot; + token);</span>
+    } else {
+<span class="fc" id="L98">      this.handleOption(this.options.getOption(matchingOpts.get(0)));</span>
+    }
+<span class="fc" id="L100">  }</span>
+
+  /**
+   * This method handles and processes an Option object.
+   *
+   * @param option the Option
+   * @throws ParserException if the Option is judged to be invalid.
+   */
+  private void handleOption(Option option) throws ParserException {
+<span class="fc" id="L109">    this.checkRequiredArgs();</span>
+<span class="fc" id="L110">    this.updateRequiredOptions(option);</span>
+<span class="fc" id="L111">    this.cmd.addOption(option);</span>
+<span class="fc bfc" id="L112" title="All 2 branches covered.">    if (option.hasArg()) {</span>
+<span class="fc" id="L113">      this.currentOption = option;</span>
+    } else {
+<span class="fc" id="L115">      this.currentOption = null;</span>
+    }
+<span class="fc" id="L117">  }</span>
+
+  /**
+   * Removes the Option from the list of expected Options.
+   *
+   * @param option
+   */
+  private void updateRequiredOptions(Option option) {
+<span class="fc bfc" id="L125" title="All 2 branches covered.">    if (option.isRequired()) {</span>
+<span class="fc" id="L126">      this.expectedOpts.remove(option.getLongOpt());</span>
+    }
+<span class="fc" id="L128">  }</span>
+
+  /**
+   * Helper method to check whether all the required Options are present.
+   *
+   * @throws ParserException if any of the required Options are missing.
+   */
+  private void checkRequiredOptions() throws ParserException {
+    // If there are required options that have not been processed
+<span class="fc bfc" id="L137" title="All 2 branches covered.">    if (!this.expectedOpts.isEmpty()) {</span>
+<span class="fc" id="L138">      throw new ParserException(this.expectedOpts + &quot; Missing Option Exception&quot;);</span>
+    }
+<span class="fc" id="L140">  }</span>
+
+  /**
+   * Checks whether the current Option has received its required arguments.
+   *
+   * @throws ParserException if the current Option has not received all of its required arguments.
+   */
+  private void checkRequiredArgs() throws ParserException {
+<span class="pc bpc" id="L148" title="3 of 4 branches missed.">    if (this.currentOption != null &amp;&amp; this.currentOption.requiresArg()){</span>
+<span class="nc" id="L149">      throw new ParserException(this.currentOption.getLongOpt() + &quot; Missing Argument Exception&quot;);</span>
+    }
+<span class="fc" id="L151">  }</span>
+
+  /**
+   * Returns true is the token is a valid argument.
+   * In this case, an argument is judged to be valid as long as it is not one of the
+   * long-names of Options.
+   *
+   * @param token the argument to be evaluated
+   * @return true if we have a valid argument, false otherwise.
+   */
+  private boolean isArgument(String token)
+  {
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">    return !isLongOption(token);</span>
+  }
+
+  /**
+   * Checks if if the token looks like the long-name of an Option.
+   *
+   * @param token the token to be evaluated
+   */
+  private boolean isLongOption(String token) {
+<span class="pc bpc" id="L172" title="3 of 4 branches missed.">    if (!token.startsWith(&quot;-&quot;) || token.length() == 1) {</span>
+<span class="fc" id="L173">      return false;</span>
+    }
+
+<span class="nc bnc" id="L176" title="All 2 branches missed.">    if (!this.options.getMatchingOptions(token).isEmpty())</span>
+    {
+      // long or partial long options (--L, -L, --L=V, -L=V, --l, --l=V)
+<span class="nc" id="L179">      return true;</span>
+    }
+<span class="nc" id="L181">    return false;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

@@ -1,0 +1,4 @@
+In this project, we used builder design pattern in the following two classes:
+1. model.ToDo : this will help to create a to do object that take in different parameters based on user's input. Also the builder will help to set some default value if user's input is null
+
+2: view.Option: this helps to define different commands, with or without option, with or without arguments. We use this class to create different option objects and use it to validate if the user's commandline input matches the requirement. 

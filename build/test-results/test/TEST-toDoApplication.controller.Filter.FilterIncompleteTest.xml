@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="toDoApplication.controller.Filter.FilterIncompleteTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-04-07T17:48:03" hostname="MSI" time="0.0">
+  <properties/>
+  <testcase name="getResult" classname="toDoApplication.controller.Filter.FilterIncompleteTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
